@@ -33,9 +33,18 @@ module Kibali
 
 # ------------------------------------------------------------------------------
 # get_role -- returns a role obj for subject; else nil
+# EXCEPTION: EmptyRolesException if role_objects collection is empty
 # ------------------------------------------------------------------------------
-      def get_role( role_name )
-        role_objects.where(["name = ?", role_name])
+      def get_role( role_name=nil )
+
+        raise Kibali::EmptyRolesException if role_objects.empty?
+
+        if role_name.nil?
+           role_objects.first
+        else
+           role_objects.where(["name = ?", role_name])
+        end
+
       end
 
 # #############################################################################

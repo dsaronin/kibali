@@ -15,6 +15,12 @@ module Kibali
   }
 
   mattr_reader :config
+
+    class AuthenticationException < SecurityError; end
+    class EmptyRolesException < RuntimeError; end
+    class SyntaxException < ArgumentError; end
+
+
 end
 
 
