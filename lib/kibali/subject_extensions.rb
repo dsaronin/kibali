@@ -37,7 +37,7 @@ module Kibali
 # ------------------------------------------------------------------------------
       def get_role( role_name=nil )
 
-        raise Kibali::EmptyRolesException if role_objects.empty?
+        raise Kibali::EmptyRoles  if role_objects.empty?
 
         if role_name.nil?
            role_objects.first

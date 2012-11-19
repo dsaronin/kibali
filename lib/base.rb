@@ -15,6 +15,7 @@ module Kibali
 # @see Kibali::ModelExtensions::Subject#has_role?
 # @see Kibali::ModelExtensions::Subject#has_no_role!
 # #############################################################################
+
     module ClassMethods
 
 # ------------------------------------------------------------------------

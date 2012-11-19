@@ -6,7 +6,7 @@ module Kibali
 
 # ------------------------------------------------------------------------------
 # EXCEPTION: 
-     # Kibali::AuthenticationException -- execution denied
+     # Kibali::AccessDenied -- execution denied
      # Kibali::SyntaxException -- unexpected limit_type
 
      # ---------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ module Kibali
         if self.role_control_hash.member?( :anonymous )  # if anonymous is...
            my_role = :anonymous    # ...then handle anonymously
         else   # unauthorized access of controller
-           raise Kibali::AuthenticationException 
+           raise Kibali::AccessDenied 
         end   # if..then..else anonymous check
 
      end   # unless current_user has a role to be checked
@@ -49,10 +49,10 @@ module Kibali
            when :allow, :to, :only then  permitted
            when :deny, :except then permitted = !permitted
         else
-           raise Kibali::SyntaxException, "Unrecognized access_control limit_type: #{limit_type}"
+           raise Kibali::SyntaxError, "Unrecognized access_control limit_type: #{limit_type}"
         end  # case
 
-        raise Kibali::AuthenticationException unless permitted
+        raise Kibali::AccessDenied unless permitted
         break   # always break the loop at success
 
      end  # do check if role
