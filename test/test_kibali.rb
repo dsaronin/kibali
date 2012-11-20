@@ -1,7 +1,12 @@
 require 'helper'
 
 class TestKibali < Test::Unit::TestCase
-  def test_something_for_real
-    flunk "hey buddy, you should probably rename this file and start testing for real"
-  end
+
+ context "a role" do
+    should "do simple test" do
+       assert true
+    end
+
+ end   # context
+
 end

@@ -11,3 +11,12 @@ group :development, :test do
   gem "jeweler", "~> 1.8.4"
   gem 'sqlite3'
 end
+
+group :test do
+  gem "factory_girl_rails"
+  gem "shoulda"
+  # Pretty printed test output
+  gem 'turn', :require => false
+end
+
+

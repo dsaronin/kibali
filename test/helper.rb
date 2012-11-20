@@ -23,6 +23,9 @@ require 'rails'
 require 'active_support'
 require 'active_record'
 require 'action_controller'
+require 'rails/test_help'
+require 'shoulda/rails'
+
 require 'kibali'
 
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => 'test.sqlite3')
