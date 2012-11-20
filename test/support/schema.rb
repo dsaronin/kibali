@@ -48,27 +48,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "foos", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "uuids", :id => false, :force => true do |t|
-    t.string "uuid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-  
-  create_table "bars", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-  create_table "foo_bars", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   # namespaced
   
   create_table "other_roles", :force => true do |t|
@@ -82,10 +61,6 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "other_roles_other_users", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-  create_table "other_foo_bars", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

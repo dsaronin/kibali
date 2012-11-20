@@ -1,5 +1,5 @@
-require 'test_helper'
-require File.join(File.dirname(__FILE__), '..', 'lib', 'acl9')
+require 'helper'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'kibali')
 require 'support/models'
 
 #Logger = ActiveRecord::Base.logger
