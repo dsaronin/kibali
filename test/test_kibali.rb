@@ -5,7 +5,7 @@ class TestKibali < Test::Unit::TestCase
  context "a user" do
 
     setup do
-      @user = Factory( :user )
+      @user = FactoryGirl.create( :user )
     end
 
     should "raise exception if no roles" do

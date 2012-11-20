@@ -37,7 +37,10 @@ ActiveRecord::Base.send(:include, Kibali::Base)
 load 'support/schema.rb'
 
 class Test::Unit::TestCase
+ 
    FactoryGirl.find_definitions
+   include FactoryGirl::Syntax::Methods
+   
 end
 
 
