@@ -26,12 +26,12 @@ end
 module Other
 
   class Other::User < ActiveRecord::Base
-    set_table_name "other_users"
+    self.table_name =  "other_users"
     acts_as_authorization_subject :join_table_name => "other_roles_other_users", :role_class_name => "Other::Role"
   end
 
   class Other::Role < ActiveRecord::Base
-    set_table_name "other_roles"
+    self.table_name =  "other_roles"
     acts_as_authorization_role :join_table_name => "other_roles_other_users", :subject_class_name => "Other::User"
   end
 
