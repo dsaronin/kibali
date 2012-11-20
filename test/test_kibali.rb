@@ -2,10 +2,19 @@ require 'helper'
 
 class TestKibali < Test::Unit::TestCase
 
- context "a role" do
-    should "do simple test" do
-       assert true
+ context "a user" do
+
+    setup do
+      @user = Factory( :user )
     end
+
+    should "raise exception if no roles" do
+       assert_raise( Kibali::EmptyRoles ) do
+         @user.get_role()
+       end  #  block
+    end
+
+
 
  end   # context
 

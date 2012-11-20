@@ -4,7 +4,7 @@ require 'rubygems'
 require 'bundler'
 
 begin
-  Bundler.setup(:default, :development)
+  Bundler.setup(:default, :development, :test)
 rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems"
@@ -24,8 +24,8 @@ require 'active_support'
 require 'active_record'
 require 'action_controller'
 require 'rails/test_help'
-require 'shoulda/rails'
-
+require 'shoulda'
+require 'factory_girl'
 require 'kibali'
 
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => 'test.sqlite3')
@@ -37,6 +37,7 @@ ActiveRecord::Base.send(:include, Kibali::Base)
 load 'support/schema.rb'
 
 class Test::Unit::TestCase
+   FactoryGirl.find_definitions
 end
 
 
