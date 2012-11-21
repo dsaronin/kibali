@@ -15,8 +15,8 @@ module Kibali
 # has_role! -- forces subject to have the given role
 # ------------------------------------------------------------------------------
       def has_role!(role_name)
-        role = _auth_role_class.where( :name => role_name.to_s ).
-               first_or_create( :name => role_name.to_s )
+        role = _auth_role_class.where( :name => role_name.to_s ).   # acts as the find part
+               first_or_create( :name => role_name.to_s )           # acts as the create part
         role_objects << role unless self.role_objects.member?(role)
         role
       end
