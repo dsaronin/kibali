@@ -55,7 +55,7 @@ module Kibali
      self._auth_subject_class_name = subject
      self._auth_role_assoc_name    = assoc
 
-     scope :named_role, lambda { |role_name| where(["name = ?", role_name]) }
+     scope :named_role, lambda { |role_name| where(["name = ?", role_name.to_s]) }
 
    end
   

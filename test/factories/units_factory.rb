@@ -25,10 +25,9 @@ FactoryGirl.define do |binding|
      f.sequence( :name  ) { |n| "#{binding.pick_name(n,w)}@example.com" }
    end  # user
    
-   factory :role do |f|
-     f.sequence( :name ) { |n| "#{binding.pick_name(n,w)}@example.com" }
-     f.association :user
-   end   # :author
+   factory :role do 
+     name     "lime_sublime"
+   end   # 
    
 #   
 #   factory :team_asset do |f|
