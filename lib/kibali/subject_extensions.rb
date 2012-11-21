@@ -15,7 +15,7 @@ module Kibali
 # has_role! -- forces subject to have the given role
 # ------------------------------------------------------------------------------
       def has_role!(role_name)
-        role = _auth_role_class.first_or_create( "name = ?", role_name )
+        role = _auth_role_class.first_or_create( :name => role_name.to_s )
         role_objects << role unless self.role_objects.member?(role)
         role
       end
@@ -26,10 +26,6 @@ module Kibali
       def remove_role!(role_name)
         role_objects.delete( get_role( role_name ) )
       end
-
-# #############################################################################
-    private
-# #############################################################################
 
 # ------------------------------------------------------------------------------
 # get_role -- returns a role obj for subject; else nil
@@ -42,10 +38,16 @@ module Kibali
         if role_name.nil?
            role_objects.first
         else
-           role_objects.where(["name = ?", role_name])
+           role_objects.where( :name => role_name.to_s ).first
         end
 
       end
+
+
+# #############################################################################
+    private
+# #############################################################################
+
 
 # #############################################################################
       protected

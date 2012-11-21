@@ -14,6 +14,14 @@ class TestKibali < Test::Unit::TestCase
        end  #  block
     end
 
+   should "be assigned a role" do
+      assert_difference( 'Role.count' ) do
+         @user.has_role!( :admin )
+      end  # do count diff
+      assert @user.has_role?( :admin )
+      assert !@user.has_role?( :wildblue )
+   end  # do should
+
 
 
  end   # context
