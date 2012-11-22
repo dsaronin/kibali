@@ -23,7 +23,10 @@ module Kibali
  # ------------------------------------------------------------------------------
   def before( controller )
 
-     my_role = current_user.get_role.name.to_sym
+#      puts ">>>>>> before/self: #{self.class.name} <<<<<<"
+#      puts ">>>>>> before/current_user: #{controller.respond_to?(:current_user).to_s} <<<<<<"
+
+     my_role = controller.current_user.get_role.name.to_sym
 
          # if current_user's role not present; check if anonymous is
      unless self.role_control_hash.member?( my_role )
@@ -37,7 +40,7 @@ module Kibali
 
      end   # unless current_user has a role to be checked
 
-     expected_action = action_name.to_sym  # action being attempted
+     expected_action = controller.action_name.to_sym  # action being attempted
 
          # now check the action_hash for action access
          # shown as a loop, but only the first entry is meaningful
