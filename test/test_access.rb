@@ -1,6 +1,10 @@
-require 'helper'
+require 'ctlr_helper'
 
-require 'support/controllers'
+require 'empty_controller'
+
+# Re-raise errors caught by the controller.
+class EmptyController; def rescue_action(e) raise e end; end
+
 
 class EmptyControllerTest < ActionController::TestCase
 
