@@ -7,7 +7,7 @@ scheme for Rails controllers.
 ## Basic concepts
 Authentication is often called for on a controller-by-controller basis, restricting
 actions to users who possess certain roles. Kibali (current version) assumes only one role
-per user. Kibali requires a _current__user _method accessible at the controller level
+per user. Kibali requires a _current\_user_ method accessible at the controller level
 and which returns a User object.
 
 Kibali adds, to the User model, role accessor methods: has\_role?, has\_role!, get\_role
@@ -39,21 +39,22 @@ Or use bundler and place in your Gemfile
 
 ### Defaults assumed
 
-*User* is the subject model: 
+**User** is the subject model: 
 indicate by inserting the following macro after the class definition:
+
 ```
     acts_as_authorization_subject
 ```
 
-*Role* is the role model: 
+**Role** is the role model: 
 indicate by inserting the following macro after the class definition:
 
 ```
    acts_as_authorization_role
 ```
 
-Note: the gem allows these names to be changed, but I haven't built tests
-for verifying that they work.
+Note: the gem allows the default model/table names to be changed, but I haven't built tests
+for verifying that the changes will work.
 
 ```
    class Role < ActiveRecord::Base

@@ -20,7 +20,7 @@ class ShowMd
   end
 
   def show
-    system("chromium-browser  #{TEMPFILE} &")
+    system("google-chrome  #{TEMPFILE} &")
   end
 
 
