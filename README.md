@@ -39,9 +39,18 @@ Or use bundler and place in your Gemfile
 
 ### Defaults assumed
 
-User is the subject's model: insert acts_as_authorization_subject
-Role is the role's model: insert acts_as_authorization_role
-you'll need a join table: roles_users
+__User is the subject model: 
+indicate by inserting the following macro after the class definition:
+```
+    acts_as_authorization_subject
+```
+
+__Role is the role model: 
+indicate by inserting the following macro after the class definition:
+
+```
+   acts_as_authorization_role
+```
 
 Note: the gem allows these names to be changed, but I haven't built tests
 for verifying that they work.
@@ -85,11 +94,11 @@ and the join table
 
 ## Usage
 
-at the head of every controller for which you wish to control user access,
+At the head of every controller for which you wish to control user access,
 you'll need to place an _access_control_ macro which is used to generate a 
 before_filter for the authorization checks. In the testing, I had to place the
 parameter in a seperate statement because syntax errors were encountered. That
-might just be cause of the limited test structure used. I'll show both forms here.
+might be due to the limited test structure used. I'll show both forms here.
 
 Unauthorized access yields an exception: Kibali::AccessDenied .
 Syntax errors in formulating the control parameters will also raise an exception: Kibali::SyntaxError .
@@ -133,6 +142,7 @@ class AnyController < ApplicationController
 Catch exceptions:
 
 ```
+class ApplicationController < ActionController::Base
    rescue_from Kibali::AccessDenied do |e|
      # do something here
    end
@@ -143,6 +153,19 @@ Catch exceptions:
 
 Please see the examples in the test folder
  
+## Acknowledgements
+
+Kibali was influenced by the acl9 gem (https://github.com/be9/acl9). 
+I used acl9 for a number of years until it broke under Rails 3.2.x with a SystemStack error. 
+Trying to fix the bug proved to be difficult due to the extent of meta programming. Noting that Rails now
+had a simple way to designate a class to handle before_filters 
+(Gavin Morrice's excellent tutorial: http://gavinmorrice.com/blog/posts/15-dryer-neater-rails-before_filters-using-classes),
+I decided that a simpler role-based authorization Rails 3.2.x gem would be valuable. As I already had a production app based
+on acl9, I wanted the conversion to be as seamless as possible. I've kept the same tables and naming. And I've made
+the access_control syntax similar (though not the same). I did keep the same model macro names and config default variables,
+but all access_control code has changed. The tests are all different.
+
+
 ## Contributing to kibali
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
