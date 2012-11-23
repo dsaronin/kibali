@@ -26,13 +26,13 @@ end
 
 Jeweler::RubygemsDotOrgTasks.new
 
-require 'rake/testtask'
-
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-end
+# ------------------------------------------------------------------------
+# don't use normal Rake test routine because of double factory_girl
+# ------------------------------------------------------------------------
+task :test do
+   ruby '-I test "test/test_kibali.rb"'
+   ruby '-I test "test/test_access.rb"'
+end # test task
 
 task :default => :test
 

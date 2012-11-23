@@ -13,7 +13,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "factory_girl_rails"
+  gem "factory_girl"
   gem "shoulda"
   # Pretty printed test output
   gem 'turn', :require => false
