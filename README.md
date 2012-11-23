@@ -7,15 +7,15 @@ scheme for Rails controllers.
 ## Basic concepts
 Authentication is often called for on a controller-by-controller basis, restricting
 actions to users who possess certain roles. Kibali (current version) assumes only one role
-per user. Kibali requires a _current__user_ method accessible at the controller level
+per user. Kibali requires a _current__user _method accessible at the controller level
 and which returns a User object.
 
-Kibali adds to the User model role accessor methods: has\_role?, has\_role!, get\_role
+Kibali adds, to the User model, role accessor methods: has\_role?, has\_role!, get\_role
 
 ## Structure
 
 * necessary models: user, roles, roles\_users (join table)
-* necessary migrations: user, roles (join table)
+* necessary migrations (for kibali): roles, roles\_users (join table)
 
 ## Dependency requirements
 
@@ -27,11 +27,13 @@ Either install the gem manually:
 
 ```
   $ gem install
+```
 
 Or use bundler and place in your Gemfile
 
 ```
   gem 'kibali'
+```
 
 ## Setup
 
@@ -52,6 +54,7 @@ for verifying that they work.
    class User < ActiveRecord::Base
      acts_as_authorization_subject
    end
+```
 
 ### Migrations required
 
@@ -67,6 +70,7 @@ Some of the fields are legacy from acl9 and currently are not used.
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+```
 
 and the join table
 
@@ -76,6 +80,7 @@ and the join table
       t.column  :role_id, :integer
     end
       add_index :roles_users, :user_id
+```
  
 
 ## Usage
@@ -110,6 +115,7 @@ class AnyController < ApplicationController
        :manager => { :deny  => [ :delete, :edit ] },
        :member  => { :allow => [ :index, :show  ] }
    }
+```
  
 alternatively
 
@@ -122,6 +128,7 @@ class AnyController < ApplicationController
        :member  => { :allow => [ :index, :show  ] }
    }
    access_control control_parameters
+```
  
 Catch exceptions:
 
@@ -129,6 +136,7 @@ Catch exceptions:
    rescue_from Kibali::AccessDenied do |e|
      # do something here
    end
+```
 
 
 ## Examples
