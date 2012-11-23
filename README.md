@@ -39,13 +39,13 @@ Or use bundler and place in your Gemfile
 
 ### Defaults assumed
 
-__User is the subject model: 
+*User* is the subject model: 
 indicate by inserting the following macro after the class definition:
 ```
     acts_as_authorization_subject
 ```
 
-__Role is the role model: 
+*Role* is the role model: 
 indicate by inserting the following macro after the class definition:
 
 ```
