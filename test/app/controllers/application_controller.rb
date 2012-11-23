@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   attr_accessor :my_current_user
 
-  rescue_from Kibali::AccessDenied do |e|
-    render :text => 'AccessDenied'
-  end
+#   rescue_from Kibali::AccessDenied do |e|
+#     render :text => 'AccessDenied'
+#   end
 
   #protected
 

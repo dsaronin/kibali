@@ -7,7 +7,9 @@ module Kibali
 # ------------------------------------------------------------------------------
 # EXCEPTION: 
      # Kibali::AccessDenied -- execution denied
-     # Kibali::SyntaxException -- unexpected limit_type
+     # Kibali::SyntaxError -- unexpected limit_type, or action_type
+# #############################################################################
+     # see test/app/controllers/empty_controller.rb for sample syntax
 
      # ---------------------------------------------------------------------------------
      # possible states and resultant handlings
@@ -22,9 +24,6 @@ module Kibali
      # ---------------------------------------------------------------------------------
  # ------------------------------------------------------------------------------
   def before( controller )
-
-#      puts ">>>>>> before/self: #{self.class.name} <<<<<<"
-#      puts ">>>>>> before/current_user: #{controller.respond_to?(:current_user).to_s} <<<<<<"
 
      my_role = controller.current_user.get_role.name.to_sym
 
@@ -42,6 +41,8 @@ module Kibali
 
      expected_action = controller.action_name.to_sym  # action being attempted
 
+   permitted = true   # presume authorized
+
          # now check the action_hash for action access
          # shown as a loop, but only the first entry is meaningful
      self.role_control_hash[my_role].each do |limit_type, action_list|
@@ -55,12 +56,20 @@ module Kibali
            raise Kibali::SyntaxError, "Unrecognized access_control limit_type: #{limit_type}"
         end  # case
 
-        raise Kibali::AccessDenied unless permitted
+        
+        unless permitted      # ... figure out the type of exception
+           if action_list.any?{ |actn|  actn.class.name != "Symbol" }
+              raise Kibali::SyntaxError, "all actions should be symbols"
+           else
+              raise Kibali::AccessDenied 
+           end  # syntax checking
+        end  # unless
+
         break   # always break the loop at success
 
      end  # do check if role
 
-     return true
+     return permitted
   end
 
 # ------------------------------------------------------------------------------

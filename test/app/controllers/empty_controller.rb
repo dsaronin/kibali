@@ -5,9 +5,13 @@ class EmptyController < ApplicationController
    control_hash = {
        :admin1   => { } ,
        :admin2   => { :allow => [] },
-       :manager1 => { :allow => [ :index, :show ] },
+       :manager1 => { :allow => [ :index, :edit ] },
        :denier1  => { :deny  => [ ] },
-       :denier2  => { :deny  => [ :index, :show ] } 
+       :denier2  => { :deny  => [ :index, :edit ] },
+       :error1   => { :wild  => [ :index ] },
+       :error2   => { 'allow'  => [ :index ] },
+       :error3   => { :allow  => [ :index, 'show' ] }
+       
    }
 
    access_control control_hash
