@@ -8,7 +8,9 @@ class ApplicationController < ActionController::Base
   #protected
 
   def set_current_user
-    if params[:user]
+    if params[:user].blank?
+       self.my_current_user = nil
+    else
       self.my_current_user = User.find params[:user]
     end
   end

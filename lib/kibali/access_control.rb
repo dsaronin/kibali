@@ -22,26 +22,33 @@ module Kibali
      #                           action not matched        permitted
      #
      # ---------------------------------------------------------------------------------
+     # if current_user.nil?, proceed as :anonymous if so referenced in role_control_hash
+     # if user's role is not referenced, proceed as :all if so referenced in role_control_hash
+     # else proceed with user's role
  # ------------------------------------------------------------------------------
   def before( controller )
 
-     my_role = controller.current_user.get_role.name.to_sym
-
-         # if current_user's role not present; check if anonymous is
-     unless self.role_control_hash.member?( my_role )
-        # here if current_user's role not specificied in control list
-
-        if self.role_control_hash.member?( :anonymous )  # if anonymous is...
+     if controller.current_user.nil?   # no user defined; anonymous permitted?
+         
+        if self.role_control_hash.member?( :anonymous )  # if anonymous is referenced, continue...
            my_role = :anonymous    # ...then handle anonymously
         else   # unauthorized access of controller
            raise Kibali::AccessDenied 
         end   # if..then..else anonymous check
 
-     end   # unless current_user has a role to be checked
+     elsif !self.role_control_hash.member?( my_role = controller.current_user.get_role.name.to_sym )
+         
+        if self.role_control_hash.member?( :all )  # if all is referenced, continue...
+           my_role = :all    # ...then handle as all
+        else   # unauthorized access of controller
+           raise Kibali::AccessDenied 
+        end   # if..then..else anonymous check
+
+     end   # if..elsif check for anonymous or role not allowed
 
      expected_action = controller.action_name.to_sym  # action being attempted
 
-   permitted = true   # presume authorized
+     permitted = true   # presume authorized
 
          # now check the action_hash for action access
          # shown as a loop, but only the first entry is meaningful

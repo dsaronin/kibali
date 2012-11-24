@@ -95,6 +95,15 @@ context "ctlr" do
 
 
 
+   should 'reject anonymous not referenced ' do 
+
+     assert_raise( Kibali::AccessDenied ) do
+        get :index, :user => ""
+     end  #  block
+
+   end  # should do
+
+
    should 'deny others all access ' do 
      @deshaun.has_role!( :wildblue )
 

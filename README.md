@@ -97,9 +97,12 @@ and the join table
 
 At the head of every controller for which you wish to control user access,
 you'll need to place an _access_control_ macro which is used to generate a 
-before_filter for the authorization checks. In the testing, I had to place the
-parameter in a seperate statement because syntax errors were encountered. That
-might be due to the limited test structure used. I'll show both forms here.
+before_filter for the authorization checks. The macro takes a hash of role
+specification parameters. These must be specified prior to the macro and
+then referenced as the macro's parameter parameter. I cannot be specified
+in-line because Rails is treating it as a before_filter and so expects a
+before_filter type of ( :only =>, :except => ) hash which would then apply
+to the before_filter itself and thus bypass any explicit checking.
 
 Unauthorized access yields an exception: Kibali::AccessDenied .
 Syntax errors in formulating the control parameters will also raise an exception: Kibali::SyntaxError .
@@ -108,7 +111,18 @@ You'll probably want to catch those exceptions and handle them gracefully, proba
 Notice that roles, limit_types, and controller actions are all expected to be symbols.
 
 You have complete freedom to define roles to be whatever you want: except for the reserved words: :all, :anonymous.
+The usage of :all, :anonymous is explained with the following logic.
 
+* if current_user.nil?, then proceed as :anonymous if :anonymous is referenced in the role_control_hash
+* if user's role is not referenced, then proceed as :all if :all is referenced in the role_control_hash
+* else proceed and evaluate the role_control_hash with user's role
+
+This means that :all will **only** be invoked if a user has a role which is **NOT** specified in the role_control_hash and
+if :all **is** specified in the hash. In that sense :unspecified would be more accurate than :all, but :all is shorter and 
+handier to work with.
+And it means that :anonymous will **only** be invoked if current_user.nil? is true and
+if :anonymous **is** specified in the hash.
+ 
 The access limitation types are: 
 
 * :allow, :to, :only -- control what access is allowed; all else will be denied
@@ -120,23 +134,14 @@ If both limit_type and action_list are missing, then :allow => [] will be assume
 ```
 class AnyController < ApplicationController
 
-   access_control {
-       :admin   => { :allow => [] },
-       :manager => { :deny  => [ :delete, :edit ] },
-       :member  => { :allow => [ :index, :show  ] }
-   }
-```
- 
-alternatively
-
-```
-class AnyController < ApplicationController
-
    control_parameters = {
        :admin   => { :allow => [] },
        :manager => { :deny  => [ :delete, :edit ] },
-       :member  => { :allow => [ :index, :show  ] }
+       :member  => { :allow => [ :index, :show  ] },
+       :anonymous => { :allow => [:index ] },
+       :all       => { :deny  => [:edit, :update] }
    }
+
    access_control control_parameters
 ```
  
