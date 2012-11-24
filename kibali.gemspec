@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "kibali"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Daudi Amani"]
-  s.date = "2012-11-23"
+  s.date = "2012-11-24"
   s.description = "simple Rails role authentication"
   s.email = "dsaronin@gmail.com"
   s.extra_rdoc_files = [
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "kibali.gemspec",
     "lib/kibali.rb",
     "lib/kibali/access_control.rb",
     "lib/kibali/base.rb",
@@ -31,6 +32,7 @@ Gem::Specification.new do |s|
     "lib/kibali/railtie.rb",
     "lib/kibali/subject_extensions.rb",
     "markdown.rb",
+    "test/app/controllers/anon_controller.rb",
     "test/app/controllers/application_controller.rb",
     "test/app/controllers/empty_controller.rb",
     "test/config.ru",
@@ -42,6 +44,7 @@ Gem::Specification.new do |s|
     "test/support/models.rb",
     "test/support/schema.rb",
     "test/test_access.rb",
+    "test/test_anon.rb",
     "test/test_kibali.rb"
   ]
   s.homepage = "http://github.com/dsaronin@gmail.com/kibali"
