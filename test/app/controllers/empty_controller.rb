@@ -10,7 +10,8 @@ class EmptyController < ApplicationController
        :denier2  => { :deny  => [ :index, :edit ] },
        :error1   => { :wild  => [ :index ] },
        :error2   => { 'allow'  => [ :index ] },
-       :error3   => { :allow  => [ :index, 'show' ] }
+       :error3   => { :allow  => [ :index, 'show' ] },
+       :error4   => { 'allow'  => :index }
        
    }
 

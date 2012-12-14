@@ -144,6 +144,16 @@ context "ctlr" do
    end  # should do
 
 
+   should 'error action list syntax ' do 
+     @deshaun.has_role!( :error4 )
+
+     assert_raise( Kibali::SyntaxError ) do
+        get :index, :user => @deshaun.id.to_s
+     end  #  block
+
+   end  # should do
+
+
 
  
 end # context

@@ -54,6 +54,10 @@ module Kibali
          # shown as a loop, but only the first entry is meaningful
      self.role_control_hash[my_role].each do |limit_type, action_list|
 
+        unless action_list.kind_of?( Array )
+           raise Kibali::SyntaxError, "all action lists should be arrays of symbols"
+        end
+
         permitted = ( action_list.empty? || action_list.include?( expected_action ) )
         
         case limit_type
