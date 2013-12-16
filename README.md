@@ -4,6 +4,10 @@ Kibali is a simple replacement for ACL9, a role-based authentication gem.
 Kibali is primarily oriented for functioning as a before\_filter role authentication 
 scheme for Rails controllers.
 
+## version
+v0.3.1 for Rails 4.0/ Ruby 2.0
+
+
 ## Basic concepts
 Authentication is often called for on a controller-by-controller basis, restricting
 actions to users who possess certain roles. Kibali (current version) assumes only one role
@@ -19,7 +23,7 @@ Kibali adds, to the User model, role accessor methods: has\_role?, has\_role!, g
 
 ## Dependency requirements
 
-* Rails 3.2 or higher
+* Rails 4.0 or higher
 
 ## Installation
 
