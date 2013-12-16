@@ -12,8 +12,8 @@ context "ctlr" do
     end
 
     teardown do
-       User.destroy_all
-       Role.destroy_all
+       User.all.each {|x| x.destroy }
+       Role.all.each {|x| x.destroy }
     end
 
 

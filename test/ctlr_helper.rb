@@ -67,7 +67,6 @@ TestKibali::Application.initialize!
 
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
 ActionController::Base.logger = ActiveRecord::Base.logger
-ActiveRecord::Base.silence { ActiveRecord::Migration.verbose = false }
 
 class ActiveSupport::TestCase
 

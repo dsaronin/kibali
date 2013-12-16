@@ -10,8 +10,8 @@ class TestKibali < Test::Unit::TestCase
     end
 
     teardown do
-       User.destroy_all
-       Role.destroy_all
+       User.all.each {|x| x.destroy }
+       Role.all.each {|x| x.destroy }
     end
 
 
@@ -32,7 +32,7 @@ class TestKibali < Test::Unit::TestCase
 
    should "get role for all cases" do
       @demarcus.has_role!( :admin )
-      admin_role_list = Role.where( :name => "admin" ).all
+      admin_role_list = Role.where( :name => "admin" ).to_a
       assert_equal  1,admin_role_list.size
       assert_equal  admin_role_list.first, @demarcus.get_role( :admin )
       assert_equal  admin_role_list.first, @demarcus.get_role( )
@@ -116,8 +116,8 @@ class TestKibali < Test::Unit::TestCase
     end
 
     teardown do
-       User.destroy_all
-       Role.destroy_all
+       User.all.each {|x| x.destroy }
+       Role.all.each {|x| x.destroy }
     end
 
    should "not be same as another" do

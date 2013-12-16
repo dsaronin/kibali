@@ -10,7 +10,7 @@ FactoryGirl.define do |binding|
     
      USERNAMES = %w(demarcus deshaun jemell jermaine jabari kwashaun musa nigel kissamu yona brenden terell treven tyrese adonys)
 
-    # pick_name -- construct a unique user name based on sequence & world
+    # pick_name -- construct a unique user name based on sequence & world (w)
     def pick_name(n,w)
       return USERNAMES[ (n % USERNAMES.size) ] + n.to_s + "_w#{w.to_s}"
     end
@@ -21,8 +21,8 @@ FactoryGirl.define do |binding|
 
 
    factory :user do |f|
-     f.sequence( :email ) { |n| "#{binding.pick_name(n,w)}@example.com" }
-     f.sequence( :name  ) { |n| "#{binding.pick_name(n,w)}@example.com" }
+     f.sequence( :email ) { |n| "#{binding.pick_name(n,1)}@example.com" }
+     f.sequence( :name  ) { |n| "#{binding.pick_name(n,1)}@example.com" }
    end  # user
    
    factory :role do 
